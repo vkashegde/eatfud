@@ -1,5 +1,6 @@
 import 'package:eatfud/view/authScreens/mobile_login_screen.dart';
 import 'package:eatfud/view/authScreens/otp_screen.dart';
+import 'package:eatfud/view/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
           ),
-          home: OTPScreen());
+          home: BottomNavBar());
     });
   }
 }
