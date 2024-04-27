@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "300974807923",
+    "project_id": "eatfud-f3ab8",
+    "storage_bucket": "eatfud-f3ab8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300974807923:android:80c4dfd3f51b24ae474306",
+        "android_client_info": {
+          "package_name": "com.example.eatfud"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9MCTxw3OIN1Z9SEUDaS8yHHmM0ugu6OQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

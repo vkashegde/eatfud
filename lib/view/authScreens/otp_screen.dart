@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:eatfud/controller/provider/auth_provider/auth_provider.dart';
+import 'package:eatfud/controller/services/auth_services/mobile_auth_services.dart';
 import 'package:eatfud/utils/colors.dart';
 import 'package:eatfud/utils/textStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -71,7 +74,11 @@ class _OTPScreenState extends State<OTPScreen> {
                     shape: StadiumBorder(),
                     padding:
                         EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h)),
-                onPressed: () {},
+                onPressed: () {
+                  print("MOB>>> ${otpController.text.trim()}");
+                  MobileAuthServices.verifyOTP(
+                      context: context, otp: otpController.text);
+                },
                 child: Row(
                   children: [
                     Text(
@@ -96,7 +103,7 @@ class _OTPScreenState extends State<OTPScreen> {
         children: [
           SizedBox(height: 2.h),
           Text(
-            "Enter the 4-digit code sent to you at 3847547899",
+            "Enter the 4-digit code sent to you at ${context.read<MobileAuthProvider>().mobileNo}",
             style: AppTextStyles.body16,
           ),
           SizedBox(height: 3.h),
