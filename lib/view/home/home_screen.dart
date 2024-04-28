@@ -1,5 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eatfud/controller/provider/restorent_provider/restorent_provider.dart';
+import 'package:eatfud/model/restorent_model.dart';
 import 'package:eatfud/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/textStyles.dart';
@@ -18,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ['assets/categories/petSupplies.png', 'Per Supplies'],
     ['assets/categories/icecream.png', 'Ice Cream']
   ];
+  CarouselController controller = CarouselController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -123,20 +128,79 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 2.h,
             ),
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 20.h,
-                    width: 94.w,
-                    margin: EdgeInsets.symmetric(vertical: 1.h),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.sp),
-                        color: greyShade3),
-                  );
-                })
+            Consumer<RestorentProvider>(
+                builder: (context, restorentProvider, child) {
+              if (restorentProvider.restorents.isEmpty) {
+                return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: 20.h,
+                        width: 94.w,
+                        margin: EdgeInsets.symmetric(vertical: 1.h),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.sp),
+                            color: greyShade3),
+                      );
+                    });
+              } else {
+                return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: restorentProvider.restorents.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      RestaurantModel restorant =
+                          restorentProvider.restorents[index];
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 1.5.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.h, vertical: 2.h),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.sp),
+                            border: Border.all(color: black87)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                height: 23.h,
+                                width: 94.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.sp),
+                                  border: Border.all(color: greyShade3),
+                                ),
+                                child: CarouselSlider(
+                                  carouselController: controller,
+                                  options: CarouselOptions(
+                                    height: 23.h,
+                                    autoPlay: true,
+                                    viewportFraction: 1,
+                                  ),
+                                  items: restorant.bannerImages!
+                                      .map((img) => Container(
+                                            width: 94.w,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(img),
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ))
+                                      .toList(),
+                                )),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              restorant.restaurantName!,
+                              style: AppTextStyles.body16,
+                            )
+                          ],
+                        ),
+                      );
+                    });
+              }
+            })
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:eatfud/controller/services/fetch_restorents/fetch_restorent_services.dart';
 import 'package:eatfud/utils/colors.dart';
 import 'package:eatfud/view/accounts/account_screen.dart';
 import 'package:eatfud/view/basket/basket_screen.dart';
@@ -19,6 +20,14 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      RestorentServices.getNearbyRestorents(context);
+    });
+  }
 
   List<Widget> _buildScreens() {
     return const [

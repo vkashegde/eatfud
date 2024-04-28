@@ -1,4 +1,5 @@
 import 'package:eatfud/controller/provider/auth_provider/auth_provider.dart';
+import 'package:eatfud/controller/provider/restorent_provider/restorent_provider.dart';
 import 'package:eatfud/firebase_options.dart';
 import 'package:eatfud/view/authScreens/mobile_login_screen.dart';
 import 'package:eatfud/view/authScreens/otp_screen.dart';
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
       return MultiProvider(
         providers: [
           ChangeNotifierProvider<MobileAuthProvider>(
-              create: (_) => MobileAuthProvider())
+              create: (_) => MobileAuthProvider()),
+          ChangeNotifierProvider<RestorentProvider>(
+              create: (_) => RestorentProvider())
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
